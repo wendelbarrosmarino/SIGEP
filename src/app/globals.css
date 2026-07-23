@@ -1,0 +1,190 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* SIGEP — Light Theme */
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 211 100% 42%;     /* #0078D4 — HUERB blue */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 211 100% 42%;
+    --radius: 0.5rem;
+    
+    /* Sidebar */
+    --sidebar-bg: 215 25% 97%;
+    --sidebar-width: 260px;
+    --sidebar-collapsed-width: 64px;
+  }
+
+  .dark {
+    /* SIGEP — Dark Theme */
+    --background: 222 20% 10%;
+    --foreground: 210 40% 98%;
+    --card: 222 20% 13%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 20% 13%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 211 100% 55%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 217 33% 17%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 50%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217 33% 22%;
+    --input: 217 33% 22%;
+    --ring: 211 100% 55%;
+
+    /* Sidebar dark */
+    --sidebar-bg: 222 20% 8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Scrollbar personalizada */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-border rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground;
+  }
+}
+
+@layer components {
+  /* Layout principal */
+  .app-layout {
+    @apply flex h-screen overflow-hidden bg-background;
+  }
+
+  .app-content {
+    @apply flex-1 flex flex-col overflow-hidden;
+  }
+
+  .app-main {
+    @apply flex-1 overflow-y-auto p-6;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    @apply flex flex-col h-full border-r border-border transition-all duration-300;
+    background: hsl(var(--sidebar-bg));
+    width: var(--sidebar-width);
+  }
+
+  .sidebar.collapsed {
+    width: var(--sidebar-collapsed-width);
+  }
+
+  /* Cards */
+  .stat-card {
+    @apply rounded-lg border bg-card p-5 shadow-sm hover:shadow-md transition-shadow;
+  }
+
+  /* Escala calendar */
+  .schedule-grid {
+    @apply grid grid-cols-7 gap-px bg-border rounded-lg overflow-hidden;
+  }
+
+  .schedule-day {
+    @apply bg-card p-2 min-h-[120px] relative;
+  }
+
+  .schedule-day.today {
+    @apply bg-primary/5;
+  }
+
+  .schedule-day.weekend {
+    @apply bg-muted/50;
+  }
+
+  .schedule-day.other-month {
+    @apply opacity-40;
+  }
+
+  .shift-badge {
+    @apply inline-flex items-center gap-1 px-1.5 py-1 rounded text-[13px] font-semibold w-full mb-0.5 truncate cursor-pointer leading-tight;
+  }
+
+  .shift-badge.mine {
+    @apply ring-2 ring-offset-1;
+  }
+
+  /* Status badges */
+  .status-pending {
+    @apply bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400;
+  }
+
+  .status-approved {
+    @apply bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400;
+  }
+
+  .status-denied {
+    @apply bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400;
+  }
+
+  /* Animações de entrada */
+  .fade-in {
+    @apply animate-fade-in;
+  }
+
+  /* Print */
+  @media print {
+    .no-print {
+      display: none !important;
+    }
+
+    .schedule-grid {
+      break-inside: avoid;
+    }
+  }
+}
+
+/* PWA — Tela de splash */
+@media (display-mode: standalone) {
+  body {
+    user-select: none;
+    -webkit-user-select: none;
+  }
+}
