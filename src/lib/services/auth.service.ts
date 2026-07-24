@@ -137,3 +137,4 @@ export const authService = {
     };
   },
 };
+export const verifyToken = authService.verifyToken;
